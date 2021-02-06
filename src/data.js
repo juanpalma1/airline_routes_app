@@ -1395,4 +1395,22 @@ const airports = [
 
 ];
 
+export function getAirlineById(id) {
+  let airline;
+  airlines.forEach(({ id: currentId, name }) => {
+    if (currentId === id) airline = name;
+  });
+
+  return airline;
+}
+
+export function getAirportByCode(code) {
+  let airport;
+  airports.forEach(({ code: currentCode, name }) => {
+    if (currentCode === code) airport = name;
+  });
+
+  return airport;
+}
+
 export default {routes, airlines, airports};
