@@ -1395,7 +1395,7 @@ const airports = [
 
 ];
 
-export function getAirlineById(id) {
+const getAirlineById = id => {
   let airline;
   airlines.forEach(({ id: currentId, name }) => {
     if (currentId === id) airline = name;
@@ -1404,7 +1404,7 @@ export function getAirlineById(id) {
   return airline;
 }
 
-export function getAirportByCode(code) {
+const getAirportByCode = code => {
   let airport;
   airports.forEach(({ code: currentCode, name }) => {
     if (currentCode === code) airport = name;
@@ -1413,4 +1413,10 @@ export function getAirportByCode(code) {
   return airport;
 }
 
-export default {routes, airlines, airports};
+export default {
+  routes,
+  airlines,
+  airports,
+  getAirlineById,
+  getAirportByCode,
+};
