@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const Select = ({
   label,
@@ -10,8 +10,12 @@ const Select = ({
   return (
     <label>
       {label}
-      <select name={name} onChange={handleChange} value={optionsState}>
-        {options()}
+      <select
+        name={name}
+        onChange={handleChange}
+        value={optionsState}
+      >
+        {options(name)}
       </select>
     </label>
   );

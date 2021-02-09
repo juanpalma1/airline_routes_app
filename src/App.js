@@ -32,30 +32,48 @@ const App = () => {
       getAirlineById(value) : getAirportByCode(value);
   };
   
-  const filteredAirlines = () => {
-    const all = {
-      id: 'all',
-      name: 'All Airlines'};
+  const filteredOptions = (group) => {
+    let property;
+    let name = 'All ';
+    let array;
     
-    return [all, ...airlines].map(({ id, name }) => {
-      const invalid = !filteredRoutes.some(route => route.airline === id);
-      return <option key={id} value={id} disabled={invalid}>{name}</option>;
+    if (group === 'airlines') {
+      property = 'id';
+      name += 'Airlines';
+      array = airlines;
+    } else {
+      property = 'code';
+      name += 'Airports';
+      array = airports;
+    }
+    
+    const all = {
+      [property]: 'all',
+      name,
+    };
+    
+    return [all, ...array].map(item => {
+      const invalid = !filteredRoutes.some(route => {
+        return group === 'airlines' ?
+          route.airline === item[property] :
+          route.src === item[property] || route.dest === item[property];
+      });
+      
+      
+      return (
+        <option
+          key={item[property]}
+          value={item[property]}
+          disabled={invalid}
+        >
+          {item['name']}
+        </option>
+      );
     });
   };
   
   const handleAirlineChange = (event) => {
     setAirline(event.target.value);
-  };
-  
-  const filteredAirports = () => {
-    const all = {
-      code: 'all',
-      name: 'All Airports'};
-    
-    return [all, ...airports].map(({ code, name }) => {
-      const invalid = !filteredRoutes.some(route => route.src === code || route.dest === code);
-      return <option key={code} value={code} disabled={invalid}>{name}</option>;
-    });
   };
   
   const handleAirportChange = (event) => {
@@ -79,14 +97,14 @@ const App = () => {
           label='Showing routes on'
           name='airlines'
           value={airline}
-          options={filteredAirlines}
+          options={filteredOptions}
           onChange={handleAirlineChange}
         />
         <Select
           label='Flying in or out of'
           name='airports'
           value={airport}
-          options={filteredAirports}
+          options={filteredOptions}
           onChange={handleAirportChange}
         />
         <button onClick={clearFilters} disabled={defaultsSelected}>
