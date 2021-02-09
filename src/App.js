@@ -38,7 +38,8 @@ const App = () => {
       name: 'All Airlines'};
     
     return [all, ...airlines].map(({ id, name }) => {
-      return <option key={id} value={id}>{name}</option>;
+      const invalid = !filteredRoutes.some(route => route.airline === id);
+      return <option key={id} value={id} disabled={invalid}>{name}</option>;
     });
   };
   
@@ -52,7 +53,8 @@ const App = () => {
       name: 'All Airports'};
     
     return [all, ...airports].map(({ code, name }) => {
-      return <option key={code} value={code}>{name}</option>;
+      const invalid = !filteredRoutes.some(route => route.src === code || route.dest === code);
+      return <option key={code} value={code} disabled={invalid}>{name}</option>;
     });
   };
   
