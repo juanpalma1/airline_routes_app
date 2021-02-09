@@ -16,7 +16,8 @@ const App = () => {
   } = DATA;
   
   const filteredRoutes = routes.filter(route => {
-    return (airline === 'all') && (airport === 'all');
+    return (Number(airline) === route.airline || airline === 'all') &&
+      (airport === 'all');
   });
   
   const columns = [
@@ -30,12 +31,32 @@ const App = () => {
       getAirlineById(value) : getAirportByCode(value);
   };
   
+  const airlineOptions = () => {
+    const all = {
+      id: 'all',
+      name: 'All Airlines'};
+    
+    return [all, ...airlines].map(({ id, name }) => {
+      return <option key={id} value={id}>{name}</option>;
+    });
+  };
+  
+  const handleAirlineChange = (event) => {
+    setAirline(event.target.value);
+  };
+  
   return (
     <div className="app">
       <header className="header">
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
+        <label>
+          Showing routes on
+          <select name="airlines" onChange={handleAirlineChange}>
+            {airlineOptions()}
+          </select>
+        </label>
         <Table
           className="routes-table"
           columns={columns}
