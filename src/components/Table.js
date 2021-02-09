@@ -25,7 +25,7 @@ const Table = ({
   });
   
   const paginationMessage = `Showing ${start + 1} - ` +
-    `${start + perPage} of ${routes.length} total routes`;
+    `${bodyRows.length} of ${routes.length} total routes`;
     
   const previousPage = () => {
     setPage(page - 1);

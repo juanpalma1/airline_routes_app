@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 const Select = ({
+  label,
+  name,
   options,
-  onChange: handleAirlineChange
+  onChange: handleChange
 }) => {
   return (
-
     <label>
-      Showing routes on
-      <select name="airlines" onChange={handleAirlineChange}>
+      {label}
+      <select name={name} onChange={handleChange}>
         {options()}
       </select>
     </label>

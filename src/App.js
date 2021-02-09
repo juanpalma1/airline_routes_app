@@ -18,7 +18,7 @@ const App = () => {
   
   const filteredRoutes = routes.filter(route => {
     return (Number(airline) === route.airline || airline === 'all') &&
-      (airport === 'all');
+      (airport === route.src || airport === route.dest || airport === 'all');
   });
   
   const columns = [
@@ -46,6 +46,20 @@ const App = () => {
     setAirline(event.target.value);
   };
   
+  const filteredAirports = () => {
+    const all = {
+      code: 'all',
+      name: 'All Airports'};
+    
+    return [all, ...airports].map(({ code, name }) => {
+      return <option key={code} value={code}>{name}</option>;
+    });
+  };
+  
+  const handleAirportChange = (event) => {
+    setAirport(event.target.value);
+  };
+  
   return (
     <div className="app">
       <header className="header">
@@ -53,8 +67,16 @@ const App = () => {
       </header>
       <section>
         <Select
+          label='Showing routes on'
+          name='airlines'
           options={filteredAirlines}
           onChange={handleAirlineChange}
+        />
+        <Select
+          label='Flying in or out of'
+          name='airports'
+          options={filteredAirports}
+          onChange={handleAirportChange}
         />
         <Table
           className="routes-table"
