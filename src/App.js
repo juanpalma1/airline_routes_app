@@ -60,6 +60,13 @@ const App = () => {
     setAirport(event.target.value);
   };
   
+  const clearFilters = () => {
+    setAirline('all');
+    setAirport('all');
+  };
+  
+  const defaultsSelected = airline === 'all' && airport === 'all';
+  
   return (
     <div className="app">
       <header className="header">
@@ -69,15 +76,21 @@ const App = () => {
         <Select
           label='Showing routes on'
           name='airlines'
+          value={airline}
           options={filteredAirlines}
           onChange={handleAirlineChange}
         />
         <Select
           label='Flying in or out of'
           name='airports'
+          value={airport}
           options={filteredAirports}
           onChange={handleAirportChange}
         />
+        <button onClick={clearFilters} disabled={defaultsSelected}>
+          Show All Routes
+        </button>
+        
         <Table
           className="routes-table"
           columns={columns}
