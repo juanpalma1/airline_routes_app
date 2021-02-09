@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import Table from './components/Table';
+import Select from './components/Select';
 import DATA from './data';
 
 const App = () => {
@@ -31,7 +32,7 @@ const App = () => {
       getAirlineById(value) : getAirportByCode(value);
   };
   
-  const airlineOptions = () => {
+  const filteredAirlines = () => {
     const all = {
       id: 'all',
       name: 'All Airlines'};
@@ -51,12 +52,10 @@ const App = () => {
         <h1 className="title">Airline Routes</h1>
       </header>
       <section>
-        <label>
-          Showing routes on
-          <select name="airlines" onChange={handleAirlineChange}>
-            {airlineOptions()}
-          </select>
-        </label>
+        <Select
+          options={filteredAirlines}
+          onChange={handleAirlineChange}
+        />
         <Table
           className="routes-table"
           columns={columns}
